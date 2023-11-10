@@ -20,9 +20,9 @@ export default [
     navLink: "/third-page",
   },
   {
-    id: "fourthPage",
+    id: "analytics",
     title: "Analytics",
     icon: <Mail size={20} />,
-    navLink: "/fourth-page",
+    navLink: "/apps/analytics",
   },
 ];
