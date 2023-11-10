@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: monospace;
+  }
+  
+  .main-container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 0 10px;
+    color: rgba(255, 255, 255, 0.95);
+    background-color: #f6f6f6;
+  }
+  
+  .main-title {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(169, 41, 169);
+    padding: 0 25px;
+    font-size: 20px;
+  }
+  
+  .main-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 25px 25px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    max-width: 220px;
+    max-height: 130px;
+  }
+  
+  .card2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    max-width: 220px;
+    max-height: 130px;
+  }
+  
+  .card:hover {
+    cursor: pointer;
+  }
+  
+  .card2:hover {
+    cursor: pointer;
+  }
+  
+  .card:first-child {
+    background: rgb(76, 4, 145);
+    background: linear-gradient(90deg, rgba(76, 4, 145, 1) 0%, rgba(127, 60, 189, 1) 15%, rgba(209, 0, 255, 1) 100%);
+  }
+  
+  .card:nth-child(2) {
+    background: linear-gradient(to bottom, #ffc578 0%, #fb9d23 100%);
+  }
+  
+  .card:nth-child(3) {
+    background: rgb(103, 226, 146);
+    background: linear-gradient(90deg, rgba(103, 226, 146, 1) 67%, rgba(179, 240, 199, 1) 96%);
+  }
+  
+  .card2:first-child {
+    background: rgb(146, 249, 251);
+    background: linear-gradient(90deg, rgba(146, 249, 251, 1) 67%, rgba(14, 223, 203, 1) 96%);
+  }
+  
+  .card2:nth-child(2) {
+    background: rgb(77, 63, 144);
+    background: linear-gradient(90deg, rgba(77, 63, 144, 1) 67%, rgba(96, 72, 198, 1) 96%);
+  }
+  
+  .card2:nth-child(3) {
+    background: linear-gradient(to bottom, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
+  }
+  
+  .card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    font-size: 10px;
+  }
+  
+  .card-inner > .card_icon {
+    font-size: 20px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+    
+    /* Medium <= 992px */
+      
+    @media screen and (max-width: 992px) {
+    
+      .menu-icon {
+        display: inline;
+      }
+    }
+    /* Small <= 768px */
+      
+    @media screen and (max-width: 768px) {
+      .main-cards {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 0;
+      }
+    }
+    
+    /* Extra Small <= 576px */
+    
+    @media screen and (max-width: 576px) {
+      .hedaer-left {
+        display: none;
+      }
+    }
+    
