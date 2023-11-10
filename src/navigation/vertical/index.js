@@ -11,7 +11,7 @@ export default [
     id: "secondPage",
     title: "User Chats",
     icon: <Mail size={20} />,
-    navLink: "/second-page",
+    navLink: "/apps/chats",
   },
   {
     id: "thirdPage",
