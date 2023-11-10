@@ -1,15 +1,15 @@
 // ** React Imports
-import { Fragment, useState, forwardRef } from "react";
+import { Fragment, useState, useEffect, memo } from "react";
 
-// ** Table Data & Columns
-import { data, columns } from "../data";
+// ** Table Columns
+import { analyticsTableColumns } from "../data";
 
-// ** Add New Modal Component
-import AddNewModal from "./AddNewModal";
+// ** Store & Actions
+import { getData } from "../store";
+import { useSelector, useDispatch } from "react-redux";
 
 // ** Third Party Components
 import ReactPaginate from "react-paginate";
-import DataTable from "react-data-table-component";
 import {
   ChevronDown,
   Share,
@@ -20,121 +20,134 @@ import {
   Copy,
   Plus,
 } from "react-feather";
+import DataTable from "react-data-table-component";
 
 // ** Reactstrap Imports
 import {
-  Row,
-  Col,
   Card,
+  CardHeader,
+  CardTitle,
   Input,
   Label,
+  Row,
+  Col,
   Button,
-  CardTitle,
-  CardHeader,
+  UncontrolledButtonDropdown,
+  DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  DropdownToggle,
-  UncontrolledButtonDropdown,
 } from "reactstrap";
 
-// ** Bootstrap Checkbox Component
-const BootstrapCheckbox = forwardRef((props, ref) => (
-  <div className="form-check">
-    <Input type="checkbox" ref={ref} {...props} />
-  </div>
-));
+const DataTableServerSide = () => {
+  // ** Store Vars
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state.dataTables);
 
-const DataTableWithButtons = () => {
   // ** States
-  const [modal, setModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
   const [searchValue, setSearchValue] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+  const [modal, setModal] = useState(false);
 
   // ** Function to handle Modal toggle
   const handleModal = () => setModal(!modal);
 
+  // ** Get data on mount
+  useEffect(() => {
+    dispatch(
+      getData({
+        page: currentPage,
+        perPage: rowsPerPage,
+        q: searchValue,
+      })
+    );
+  }, [dispatch]);
+
   // ** Function to handle filter
   const handleFilter = (e) => {
-    const value = e.target.value;
-    let updatedData = [];
-    setSearchValue(value);
+    setSearchValue(e.target.value);
 
-    const status = {
-      1: { title: "Current", color: "light-primary" },
-      2: { title: "Professional", color: "light-success" },
-      3: { title: "Rejected", color: "light-danger" },
-      4: { title: "Resigned", color: "light-warning" },
-      5: { title: "Applied", color: "light-info" },
-    };
-
-    if (value.length) {
-      updatedData = data.filter((item) => {
-        const startsWith =
-          item.full_name.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.type.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.post.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.email.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.age.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.salary.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.start_date.toLowerCase().startsWith(value.toLowerCase()) ||
-          status[item.status].title
-            .toLowerCase()
-            .startsWith(value.toLowerCase());
-
-        const includes =
-          item.full_name.toLowerCase().includes(value.toLowerCase()) ||
-          item.type.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.post.toLowerCase().includes(value.toLowerCase()) ||
-          item.email.toLowerCase().includes(value.toLowerCase()) ||
-          item.age.toLowerCase().includes(value.toLowerCase()) ||
-          item.salary.toLowerCase().includes(value.toLowerCase()) ||
-          item.start_date.toLowerCase().includes(value.toLowerCase()) ||
-          status[item.status].title.toLowerCase().includes(value.toLowerCase());
-
-        if (startsWith) {
-          return startsWith;
-        } else if (!startsWith && includes) {
-          return includes;
-        } else return null;
-      });
-      setFilteredData(updatedData);
-      setSearchValue(value);
-    }
+    dispatch(
+      getData({
+        page: currentPage,
+        perPage: rowsPerPage,
+        q: e.target.value,
+      })
+    );
   };
 
-  // ** Function to handle Pagination
+  // ** Function to handle Pagination and get data
   const handlePagination = (page) => {
-    setCurrentPage(page.selected);
+    dispatch(
+      getData({
+        page: page.selected + 1,
+        perPage: rowsPerPage,
+        q: searchValue,
+      })
+    );
+    setCurrentPage(page.selected + 1);
+  };
+
+  // ** Function to handle per page
+  const handlePerPage = (e) => {
+    dispatch(
+      getData({
+        page: currentPage,
+        perPage: parseInt(e.target.value),
+        q: searchValue,
+      })
+    );
+    setRowsPerPage(parseInt(e.target.value));
   };
 
   // ** Custom Pagination
-  const CustomPagination = () => (
-    <ReactPaginate
-      previousLabel=""
-      nextLabel=""
-      forcePage={currentPage}
-      onPageChange={(page) => handlePagination(page)}
-      pageCount={
-        searchValue.length
-          ? Math.ceil(filteredData.length / 7)
-          : Math.ceil(data.length / 7) || 1
-      }
-      breakLabel="..."
-      pageRangeDisplayed={2}
-      marginPagesDisplayed={2}
-      activeClassName="active"
-      pageClassName="page-item"
-      breakClassName="page-item"
-      nextLinkClassName="page-link"
-      pageLinkClassName="page-link"
-      breakLinkClassName="page-link"
-      previousLinkClassName="page-link"
-      nextClassName="page-item next-item"
-      previousClassName="page-item prev-item"
-      containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
-    />
-  );
+  const CustomPagination = () => {
+    const count = Math.ceil(store.total / rowsPerPage);
+
+    return (
+      <ReactPaginate
+        previousLabel={""}
+        nextLabel={""}
+        breakLabel="..."
+        pageCount={Math.ceil(count) || 1}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={2}
+        activeClassName="active"
+        forcePage={currentPage !== 0 ? currentPage - 1 : 0}
+        onPageChange={(page) => handlePagination(page)}
+        pageClassName="page-item"
+        breakClassName="page-item"
+        nextLinkClassName="page-link"
+        pageLinkClassName="page-link"
+        breakLinkClassName="page-link"
+        previousLinkClassName="page-link"
+        nextClassName="page-item next-item"
+        previousClassName="page-item prev-item"
+        containerClassName={
+          "pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
+        }
+      />
+    );
+  };
+
+  // ** Table data to render
+  const dataToRender = () => {
+    const filters = {
+      q: searchValue,
+    };
+
+    const isFiltered = Object.keys(filters).some(function (k) {
+      return filters[k].length > 0;
+    });
+
+    if (store.data.length > 0) {
+      return store.data;
+    } else if (store.data.length === 0 && isFiltered) {
+      return [];
+    } else {
+      return store.allData.slice(0, rowsPerPage);
+    }
+  };
 
   // ** Converts table to CSV
   function convertArrayOfObjectsToCSV(array) {
@@ -183,8 +196,8 @@ const DataTableWithButtons = () => {
   return (
     <Fragment>
       <Card>
-        <CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom">
-          <CardTitle tag="h4">Analytics</CardTitle>
+        <CardHeader className="border-bottom">
+          <CardTitle tag="h4">Administration</CardTitle>
           <div className="d-flex mt-md-0 mt-1">
             <UncontrolledButtonDropdown>
               <DropdownToggle color="secondary" caret outline>
@@ -223,20 +236,36 @@ const DataTableWithButtons = () => {
             </Button> */}
           </div>
         </CardHeader>
-        {/* <Row className="justify-content-end mx-0">
-          <Col
-            className="d-flex align-items-center justify-content-end mt-1"
-            md="6"
-            sm="12"
-          >
-            <Label className="me-1" for="search-input">
+        {/* <Row className="mx-0 mt-1 mb-50">
+          <Col sm='6'>
+            <div className='d-flex align-items-center'>
+              <Label for='sort-select'>show</Label>
+              <Input
+                className='dataTable-select'
+                type='select'
+                id='sort-select'
+                value={rowsPerPage}
+                onChange={e => handlePerPage(e)}
+              >
+                <option value={7}>7</option>
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={100}>100</option>
+              </Input>
+              <Label for='sort-select'>entries</Label>
+            </div>
+          </Col>
+          <Col className='d-flex align-items-center justify-content-sm-end mt-sm-0 mt-1' sm='6'>
+            <Label className='me-1' for='search-input'>
               Search
             </Label>
             <Input
-              className="dataTable-filter mb-50"
-              type="text"
-              bsSize="sm"
-              id="search-input"
+              className='dataTable-filter'
+              type='text'
+              bsSize='sm'
+              id='search-input'
               value={searchValue}
               onChange={handleFilter}
             />
@@ -246,21 +275,17 @@ const DataTableWithButtons = () => {
           <DataTable
             noHeader
             pagination
-            // selectableRows
-            columns={columns}
-            paginationPerPage={7}
+            paginationServer
             className="react-dataTable"
+            columns={analyticsTableColumns}
             sortIcon={<ChevronDown size={10} />}
             paginationComponent={CustomPagination}
-            paginationDefaultPage={currentPage + 1}
-            // selectableRowsComponent={BootstrapCheckbox}
-            data={searchValue.length ? filteredData : data}
+            data={dataToRender()}
           />
         </div>
       </Card>
-      <AddNewModal open={modal} handleModal={handleModal} />
     </Fragment>
   );
 };
 
-export default DataTableWithButtons;
+export default memo(DataTableServerSide);

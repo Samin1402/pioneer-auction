@@ -335,10 +335,10 @@ export const multiLingColumns = [
 ];
 
 // ** Table Server Side Column
-export const serverSideColumns = [
+export const administrationTableColumns = [
   {
     sortable: true,
-    name: "Full Name",
+    name: "Name",
     minWidth: "225px",
     selector: (row) => row.full_name,
   },
@@ -350,27 +350,117 @@ export const serverSideColumns = [
   },
   {
     sortable: true,
-    name: "Position",
+    name: "Role",
     minWidth: "250px",
     selector: (row) => row.post,
   },
   {
     sortable: true,
-    name: "Office",
+    name: "Requests",
     minWidth: "150px",
     selector: (row) => row.city,
   },
   {
-    sortable: true,
-    name: "Start Date",
+    name: "Status",
     minWidth: "150px",
-    selector: (row) => row.start_date,
+    sortable: (row) => row.status.title,
+    cell: (row) => {
+      return (
+        <Badge color={status[row.status].color} pill>
+          {status[row.status].title}
+        </Badge>
+      );
+    },
+  },
+  {
+    name: "Actions",
+    allowOverflow: true,
+    cell: () => {
+      return (
+        <div className="d-flex">
+          <UncontrolledDropdown>
+            <DropdownToggle className="pe-1" tag="span">
+              <MoreVertical size={15} />
+            </DropdownToggle>
+            <DropdownMenu end>
+              <DropdownItem
+                tag="a"
+                href="/"
+                className="w-100"
+                onClick={(e) => e.preventDefault()}
+              >
+                <FileText size={15} />
+                <span className="align-middle ms-50">Details</span>
+              </DropdownItem>
+              <DropdownItem
+                tag="a"
+                href="/"
+                className="w-100"
+                onClick={(e) => e.preventDefault()}
+              >
+                <Archive size={15} />
+                <span className="align-middle ms-50">Archive</span>
+              </DropdownItem>
+              <DropdownItem
+                tag="a"
+                href="/"
+                className="w-100"
+                onClick={(e) => e.preventDefault()}
+              >
+                <Trash size={15} />
+                <span className="align-middle ms-50">Delete</span>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          <Edit size={15} />
+        </div>
+      );
+    },
+  },
+];
+
+export const analyticsTableColumns = [
+  {
+    sortable: true,
+    name: "User Name",
+    minWidth: "225px",
+    selector: (row) => row.user_name,
   },
   {
     sortable: true,
-    name: "Salary",
+    name: "Type",
+    minWidth: "250px",
+    selector: (row) => row.type,
+  },
+  {
+    sortable: true,
+    name: "Mobile",
+    minWidth: "250px",
+    selector: (row) => row.mobile,
+  },
+  {
+    sortable: true,
+    name: "Date",
     minWidth: "150px",
-    selector: (row) => row.salary,
+    selector: (row) => row.date,
+  },
+  {
+    sortable: true,
+    name: "Time",
+    minWidth: "150px",
+    selector: (row) => row.time,
+  },
+  {
+    name: "Status",
+    minWidth: "150px",
+    sortable: (row) => row.status.title,
+    cell: (row) => {
+      return (
+        <Badge color={status[row.status].color} pill>
+          {status[row.status].title}
+        </Badge>
+      );
+    },
   },
 ];
 

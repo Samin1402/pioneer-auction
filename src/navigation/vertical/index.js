@@ -14,10 +14,10 @@ export default [
     navLink: "/apps/chats",
   },
   {
-    id: "thirdPage",
+    id: "administration",
     title: "Administration",
     icon: <Mail size={20} />,
-    navLink: "/third-page",
+    navLink: "/apps/administration",
   },
   {
     id: "analytics",
