@@ -35,6 +35,9 @@ const Register = lazy(() => import("../../views/Register"));
 const ForgotPassword = lazy(() => import("../../views/ForgotPassword"));
 const ResetPassword = lazy(() => import("../../views/ResetPassword"));
 const Error = lazy(() => import("../../views/Error"));
+const EditProfile = lazy(() =>
+  import("../../views/pages/account-settings/AccountTabContent")
+);
 
 // ** Merge Routes
 const Routes = [
@@ -106,6 +109,15 @@ const Routes = [
   {
     path: "/apps/administration",
     element: <Administration />,
+    meta: {
+      // appLayout: true,
+      // className: "chat-application",
+      // layout: "blank",
+    },
+  },
+  {
+    path: "/pages/account-settings",
+    element: <EditProfile />,
     meta: {
       // appLayout: true,
       // className: "chat-application",

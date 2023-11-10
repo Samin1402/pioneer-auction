@@ -67,8 +67,8 @@ const UserDropdown = () => {
         <DropdownItem divider />
         <DropdownItem
           tag={Link}
-          to="/pages/"
-          onClick={(e) => e.preventDefault()}
+          to="/pages/account-settings"
+          // onClick={(e) => e.preventDefault()}
         >
           <Settings size={14} className="me-75" />
           <span className="align-middle">Settings</span>
