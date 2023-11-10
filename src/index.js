@@ -34,6 +34,8 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 // ** React Hot Toast Styles
 import "@styles/react/libs/react-hot-toasts/react-hot-toasts.scss";
 
+import "./@fake-db";
+
 // ** Core styles
 import "./@core/assets/fonts/feather/iconfont.css";
 import "./@core/scss/core.scss";

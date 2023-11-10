@@ -27,6 +27,7 @@ const DefaultRoute = "/home";
 
 const Home = lazy(() => import("../../views/Home"));
 const Chat = lazy(() => import("../../views/apps/chats"));
+const Analytics = lazy(() => import("../../views/apps/analytics"));
 const SecondPage = lazy(() => import("../../views/SecondPage"));
 const Login = lazy(() => import("../../views/Login"));
 const Register = lazy(() => import("../../views/Register"));
@@ -90,6 +91,15 @@ const Routes = [
     meta: {
       appLayout: true,
       className: "chat-application",
+    },
+  },
+  {
+    path: "/apps/analytics",
+    element: <Analytics />,
+    meta: {
+      // appLayout: true,
+      // className: "chat-application",
+      // layout: "blank",
     },
   },
 ];
