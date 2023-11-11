@@ -1,5 +1,5 @@
-@import '../../../base/bootstrap-extended/include';
-@import '../../../base/components/include';
+@import "../../../base/bootstrap-extended/include";
+@import "../../../base/components/include";
 
 .react-dataTable {
   border-radius: 0;
@@ -12,6 +12,7 @@
       height: 38px;
 
       .rdt_TableCol {
+        background-color: #5c02b533;
         padding: 0.72rem 1.5rem;
         .rdt_TableCol_Sortable {
           color: $body-color;
@@ -39,6 +40,7 @@
     .rdt_TableRow {
       color: $body-color;
       .rdt_TableCell {
+        border-right: solid 0.5px $gray-300;
         height: 53px;
         padding: 0.72rem 1.5rem;
 
@@ -59,6 +61,9 @@
             }
           }
         }
+      }
+      .rdt_TableCell:last-child {
+        border-right: none;
       }
     }
   }
@@ -116,7 +121,7 @@
 
 .dataTable-select {
   width: 5rem;
-  &:not([multiple='multiple']) {
+  &:not([multiple="multiple"]) {
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     background-position: calc(100% - 12px) 10px, calc(100% - 20px) 12px, 100% 0;
@@ -155,7 +160,7 @@
         border-color: $theme-dark-border-color;
         .rdt_TableCol {
           color: $theme-dark-body-color;
-          div[role='button'] {
+          div[role="button"] {
             color: $theme-dark-body-color;
           }
         }

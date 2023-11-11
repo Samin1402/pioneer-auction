@@ -155,7 +155,7 @@ const DataTableServerSide = () => {
 
     const columnDelimiter = ",";
     const lineDelimiter = "\n";
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(dataToRender()[0]);
 
     result = "";
     result += keys.join(columnDelimiter);
@@ -197,7 +197,7 @@ const DataTableServerSide = () => {
     <Fragment>
       <Card>
         <CardHeader className="border-bottom">
-          <CardTitle tag="h4">Administration</CardTitle>
+          <CardTitle tag="h4">Analytics</CardTitle>
           <div className="d-flex mt-md-0 mt-1">
             <UncontrolledButtonDropdown>
               <DropdownToggle color="secondary" caret outline>
@@ -211,7 +211,7 @@ const DataTableServerSide = () => {
                 </DropdownItem>
                 <DropdownItem
                   className="w-100"
-                  onClick={() => downloadCSV(data)}
+                  onClick={() => downloadCSV(dataToRender())}
                 >
                   <FileText size={15} />
                   <span className="align-middle ms-50">CSV</span>

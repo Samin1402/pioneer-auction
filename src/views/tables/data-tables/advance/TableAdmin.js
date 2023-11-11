@@ -8,6 +8,9 @@ import { administrationTableColumns } from "../data";
 import { getData } from "../store";
 import { useSelector, useDispatch } from "react-redux";
 
+// ** Add New Modal Component
+import AddNewModal from "../basic/AddNewModal";
+
 // ** Third Party Components
 import ReactPaginate from "react-paginate";
 import { ChevronDown, Plus } from "react-feather";
@@ -140,7 +143,9 @@ const DataTableServerSide = () => {
     <Fragment>
       <Card>
         <CardHeader className="border-bottom">
-          <CardTitle tag="h4">Administration</CardTitle>
+          <CardTitle tag="h4" style={{ color: "#5C02B5", fontWeight: "600" }}>
+            Administration
+          </CardTitle>
           <Button className="ms-2" color="primary" onClick={handleModal}>
             <Plus size={15} />
             <span className="align-middle ms-50">Add Members</span>
@@ -194,6 +199,7 @@ const DataTableServerSide = () => {
           />
         </div>
       </Card>
+      <AddNewModal open={modal} handleModal={handleModal} />
     </Fragment>
   );
 };
