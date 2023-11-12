@@ -1,28 +1,31 @@
 import { Mail, Home } from "react-feather";
+import DashboardIcon from "../../assets/images/icons/category.svg";
+import ChatIcon from "../../assets/images/icons/Buy.svg";
+import StarIcon from "../../assets/images/icons/Star2.svg";
 
 export default [
   {
     id: "home",
     title: "Dashboard",
-    icon: <Home size={20} />,
+    icon: <img src={DashboardIcon} />,
     navLink: "/home",
   },
   {
     id: "secondPage",
     title: "User Chats",
-    icon: <Mail size={20} />,
+    icon: <img src={ChatIcon} color="purple" />,
     navLink: "/apps/chats",
   },
   {
     id: "administration",
     title: "Administration",
-    icon: <Mail size={20} />,
+    icon: <img src={StarIcon} />,
     navLink: "/apps/administration",
   },
   {
     id: "analytics",
     title: "Analytics",
-    icon: <Mail size={20} />,
+    icon: <img src={StarIcon} />,
     navLink: "/apps/analytics",
   },
 ];

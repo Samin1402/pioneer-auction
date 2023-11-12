@@ -27,12 +27,29 @@ body,
       }
     }
     a.active {
+      img {
+        svg {
+          path {
+            fill: red;
+          }
+        }
+      }
       z-index: 1;
-      background: linear-gradient(118deg, rgba($primary, 1), rgba($primary, 0.7));
-      box-shadow: 0 0 10px 1px rgba($primary, 0.7);
-      color: $white;
-      font-weight: 400;
-      border-radius: 4px;
+      // background: linear-gradient(
+      //   118deg,
+      //   rgba($primary, 1),
+      //   rgba($primary, 0.7)
+      // );
+      background: linear-gradient(
+        89.93deg,
+        rgba(92, 2, 181, 0.27) 2.77%,
+        rgba(92, 2, 181, 0) 109.06%
+      );
+      // box-shadow: 0 0 10px 1px rgba($primary, 0.7);
+      border: none;
+      color: $purple;
+      font-weight: 500;
+      border-radius: 20px;
     }
 
     li.nav-item {
@@ -114,7 +131,11 @@ body #root .wrapper .ps__rail-y {
       }
       .nav-item:not(.dropdown):not(.dropdown-submenu) {
         a.nav-link.active {
-          background: linear-gradient(118deg, rgba($primary, 1), rgba($primary, 0.7));
+          background: linear-gradient(
+            118deg,
+            rgba($primary, 1),
+            rgba($primary, 0.7)
+          );
           box-shadow: 0 0 6px 1px rgba($primary, 0.6);
           color: $white;
           border-radius: 4px;
