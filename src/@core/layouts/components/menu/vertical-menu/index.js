@@ -9,6 +9,8 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import VerticalMenuHeader from "./VerticalMenuHeader";
 import VerticalNavMenuItems from "./VerticalNavMenuItems";
 
+import LogoutIcon from "../../../../../assets/images/icons/Logout.svg";
+
 const Sidebar = (props) => {
   // ** Props
   const { menuCollapsed, menu, skin, menuData } = props;
@@ -91,6 +93,18 @@ const Sidebar = (props) => {
                   setCurrentActiveGroup={setCurrentActiveGroup}
                 />
               </ul>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "1.1rem",
+                  paddingLeft: "2rem",
+                  cursor: "pointer",
+                }}
+                onClick={{}} //to be filled out for logout process
+              >
+                <img src={LogoutIcon} />
+                <span>Logout</span>
+              </div>
             </PerfectScrollbar>
           </Fragment>
         )}

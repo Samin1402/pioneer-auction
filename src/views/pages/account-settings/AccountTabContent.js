@@ -7,6 +7,7 @@ import Cleave from "cleave.js/react";
 import tempAvatar from "@src/assets/images/avatars/1-small.png";
 import { useForm, Controller } from "react-hook-form";
 import "cleave.js/dist/addons/cleave-phone.us";
+import ChangePasswordIcon from "../../../assets/images/icons/Rectangle.svg";
 
 // ** Reactstrap Imports
 import {
@@ -208,7 +209,11 @@ const AccountTabs = ({ data }) => {
               </div>
             </div>
           </div>
-          <Form className="mt-2 pt-50" onSubmit={handleSubmit(onSubmit)}>
+          <Form
+            className="mt-2 pt-50"
+            style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Row>
               <Col sm="12" className="mb-1">
                 <Label className="form-label" for="firstName">
@@ -382,6 +387,40 @@ const AccountTabs = ({ data }) => {
               </Col>
             </Row>
           </Form>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardHeader className="border-bottom">
+          <CardTitle>Security</CardTitle>
+        </CardHeader>
+        <CardBody>
+          <Row style={{ marginTop: "1.5rem" }}>
+            <Col
+              sm="12"
+              className="mb-1"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+              }}
+            >
+              <Label className="form-label" for="password">
+                Password
+              </Label>
+              <Button
+                type="submit"
+                className="me-1"
+                color="primary"
+                style={{ width: "200px", display: "flex", gap: "0.75rem" }}
+              >
+                <img
+                  src={ChangePasswordIcon}
+                  style={{ width: "15px", height: "15px" }}
+                />
+                <span>Change Password</span>
+              </Button>
+            </Col>
+          </Row>
         </CardBody>
       </Card>
       {/* <DeleteAccount /> */}
