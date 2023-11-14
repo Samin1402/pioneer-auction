@@ -2,6 +2,7 @@ import { Mail, Home } from "react-feather";
 import DashboardIcon from "../../assets/images/icons/category.svg";
 import ChatIcon from "../../assets/images/icons/Buy.svg";
 import StarIcon from "../../assets/images/icons/Star2.svg";
+import LogoutIcon from "../../assets/images/icons/Logout.svg";
 
 export default [
   {
@@ -28,4 +29,10 @@ export default [
     icon: <img src={StarIcon} />,
     navLink: "/apps/analytics",
   },
+  // {
+  //   id: "logout",
+  //   title: "Logout",
+  //   icon: <img src={LogoutIcon} />,
+  //   navLink: "/",
+  // },
 ];
